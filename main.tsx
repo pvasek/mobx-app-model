@@ -16,9 +16,32 @@ const store2 = observable({
     count: 0
 })
 
+autorun(() => {
+    console.log('autorun1: ', store1.title);    
+});
+
+autorun(() => {
+    console.log('autorun2: ', store2.count);    
+});
+
+const MyComp2 = observer(({store, store2}: any) => {
+    return (
+        <div>
+            <div>
+                <label onClick={() => store.title = new Date().toTimeString()}>Title: </label>
+                <span>{store.title}</span>
+            </div>
+            <label onClick={() => store2.count = new Date().getMilliseconds()}>Count</label><span>{store2.count}</span>
+            <div>
+                {store.test}
+            </div>            
+        </div>
+    );
+})
+
 console.time('generating template...')
 const template = [];
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 3000; i++) {
     const item = { id: i, focus: 0};
     for(let j = 0; j < 50; j++) {
         item['property_name_' + j] = "property " + i + "__" + j;
@@ -40,7 +63,7 @@ let count = 0;
 setInterval(function() {
     const idx = Math.ceil(Math.random() * template.length) - 1;
     store[idx].property_name_0 = "this is new text " + new Date()  
-}, 500);
+}, 10);
 
 
 const MyRow = observer((props: any) => {
@@ -93,7 +116,9 @@ const Root = (props: any) => (
     </div>
 );
 
+
 console.time('rendering...');
 const appElement = document.getElementById('app');
 render(<Root store={store} />, appElement);
+//render(<MyComp2 store={store1} store2={store2}/>, appElement);
 console.timeEnd('rendering...');
