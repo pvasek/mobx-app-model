@@ -1,0 +1,36 @@
+# Lines starting with '#' are considered comments.
+# Exclamation mark at the begining of line means "except" -> that is: "Dont ignore"
+
+[Oo]bj/
+[Bb]in/
+Backup/
+logs/
+temp/
+tmp/
+publish/
+artifacts/
+out/
+_ReSharper*/
+*.ReSharper
+*.user
+*.suo
+*.dbmdl
+*.ldb
+*.js.map
+*.css.map
+*.pdb
+*.cache
+packages/
+doc/**/~*
+*.log
+*.lock.json
+coverage/
+
+**/wwwroot/assets/
+node_modules/
+
+*.sublime-workspace
+*.sublime-project
+*.DotSettings
+.vs
+.vscode
