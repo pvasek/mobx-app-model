@@ -4,7 +4,7 @@ import { observable, autorun, toJSON, map, asFlat, observe, expr } from 'mobx';
 import { observer } from 'mobx-react';
 
 
-import { View, createModel } from './CounterPair';
+import { View, createModel } from './CounterList';
 
 const model = createModel();
 const appElement = document.getElementById('app');

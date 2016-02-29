@@ -14,10 +14,6 @@ export const createModel = () => {
         right: right.state
     });
     
-    autorun(() => {
-        console.log('Counter pair: ', toJSON(state));
-    })
-    
     const actions = {
         reset: () => {
             transaction(() => {
@@ -44,8 +40,4 @@ export const View = ({ model }: any) => {
             <button onClick={model.signals.reset}>reset</button>
         </div>
     );
-};    
-
-export const effects = {
-    html: View
-}
+};
