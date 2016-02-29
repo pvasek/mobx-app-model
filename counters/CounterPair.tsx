@@ -17,15 +17,15 @@ export const createModel = () => {
     const actions = {
         reset: () => {
             transaction(() => {
-                left.signals.reset();
-                right.signals.reset();
+                left.targets.reset();
+                right.targets.reset();
             });
         }
     };
     
     return { 
         state, 
-        signals: actions,
+        targets: actions,
         left,
         right
     };
@@ -37,7 +37,7 @@ export const View = ({ model }: any) => {
         <div style={boxStyle}>
             <Counter model={model.left}/>
             <Counter model={model.right}/>
-            <button onClick={model.signals.reset}>reset</button>
+            <button onClick={model.targets.reset}>reset</button>
         </div>
     );
 };

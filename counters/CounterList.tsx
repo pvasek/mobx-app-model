@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { observable, autorun, toJSON, transaction } from 'mobx';
 import { observer } from 'mobx-react';
-import { View as Counter, createModel as counterCreateModel } from './Counter';
+import { View as Counter, createModel as counterCreateModel } from './CounterPair';
 
 
 export const createModel = () => {    
@@ -18,17 +18,7 @@ export const createModel = () => {
         }
     }
     result.actions = actions;
-    
-    for (var i = 0; i < 3; i++) {
-        transaction(() => {
-            actions.addCounter();
-        });
-    }
-    
-    autorun(() => {
-        console.log('state: ', toJSON(state));    
-    });
-        
+            
     return result;
 }
 

@@ -1,43 +1,58 @@
-import './../Object.assign';
 import * as React from 'react';
 import { Component } from 'react';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
-const toSignals = (state: any, actionObj: any) => {
+const toTargets = (model: any, actionObj: any) => {
     return Object.keys(actionObj).reduce((acc, key) => {
         acc[key] = function (...acc) {
-            const newState = actionObj[key](state, ...acc)
-            Object.assign(state, newState);
+            actionObj[key](model, ...acc)
         };
         return acc;
     }, {});  
 };
 
 export const createModel = (): any => {
-    const state = observable({value: 0});
-    const actions = {
-        increment: (state) => ({ value: state.value + 1 }), 
-        decrement: (state) => ({ value: state.value - 1 }), 
-        set: (state, value) => {
-            value = parseInt(value, 10);
-            return { value: isNaN(value) ? null : value };
-        },
-        reset: (state) => ({ value: 0 })
+    
+    const state = {
+        value: 0
     };
-    return { state, signals: toSignals(state, actions)};
+    
+    const actions = {
+        
+        reset({state}) {
+            state.value = 0;
+        },
+        
+        increment({state}) {
+            state.value += 1;
+        },
+         
+        decrement({state}) {
+            state.value -= 1;
+        },
+         
+        set({state}, value) {
+            value = parseInt(value, 10);
+            state.value = isNaN(value) ? null : value;
+        }        
+    };
+    
+    const result = { state: observable(state), targets: null };
+    result.targets = toTargets(result, actions);
+    return result;
 };
 
 export const View = observer(({model}: any) => {
     const counterStyle = {display: 'inline-block', padding: '2 20'};
     const state = model.state;
-    const signals = model.signals;
+    const targets = model.targets;
     return (
         <div style={counterStyle}>
-            <input type="text" onChange={(e: any) => signals.set(e.target.value)} value={state.value}/>
-            <button onClick={signals.increment}>+</button>
-            <button onClick={signals.decrement}>-</button>
-            <button onClick={signals.reset}>reset</button>
+            <input type="text" onChange={(e: any) => targets.set(e.target.value)} value={state.value}/>
+            <button onClick={targets.increment}>+</button>
+            <button onClick={targets.decrement}>-</button>
+            <button onClick={targets.reset}>reset</button>
         </div>
     );
 });
