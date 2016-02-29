@@ -20,8 +20,21 @@ export const createModel = (): any => {
         }
     };
     
-    
     // TODO: figure out how to write that in the model structure
+    const inputs = (model, drivers) => {
+        return {
+            searchInput$: Observable
+                .create()
+                .do(model.signals.setSearchText)
+                .debounceTime(400)
+                .map(i => 'http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=' + encodeURIComponent(i as string))
+                .operator(drivers.http$)
+                .flatMap(i => Observable.fromPromise(i.json()))
+                .map((i: any) => i.data.length > 0 ? i.data[0].images.fixed_height_small.url : '')
+                .subscribe(model.signals.setUrl)
+        }
+    };
+    
     // const inputs = {
     //     searchInput$: e => e.target.value,
     //     click$: e => e
