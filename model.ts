@@ -17,8 +17,9 @@ export function actionsToTargets(model: any, actionObj: any) {
 
 export function keyDriver (document: Document) {
     const subject = new Subject<KeyboardEvent>();
-    document.addEventListener('keyDown', function keyDown(ev:KeyboardEvent){
-        subject.next(ev);    
+    document.addEventListener('keydown', function keyDown(e:KeyboardEvent){
+        console.log('key: ', e.key)
+        subject.next(e);    
     });
     
     return function keyDriverFunc(options: any) {
@@ -40,7 +41,7 @@ export function httpDriver(input$: Observable<any>, options?: RequestInit): Subj
 };
 
 export function inputToTargets(model, createInputs): any {
-    const inputs = createInputs(model, { http$: httpDriver}, () => new Subject());
+    const inputs = createInputs(model, defaultDrivers, () => new Subject());
     return Object.keys(inputs).reduce((obj: any, key: string) => {
         const input: Subject<any> = inputs[key];
         obj[key] = function targetToInput(args) {

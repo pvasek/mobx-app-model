@@ -4,7 +4,7 @@ import { observable, autorun, toJSON, map, asFlat, observe, expr } from 'mobx';
 import { observer } from 'mobx-react';
 import { defaultDrivers, keyDriver } from '../model';
 
-import { View, createModel } from './CounterList';
+import { View, createModel } from './Counter';
 
 defaultDrivers['key$'] = keyDriver(document);
 
