@@ -2,15 +2,26 @@ import * as React from 'react';
 import { Component } from 'react';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import { actionsToTargets } from '../utils';
+import { modelFactory } from '../model';
 
-export const createModel = (): any => {
+export interface IState {
+    value: number;
+}
+
+export interface ITargets {
+    reset(): void;
+    increment(): void;
+    decrement(): void;
+    set(value: number): void;
+}
+
+export const createModel = modelFactory<IState, ITargets>({
     
-    const state = {
+    state: {
         value: 0
-    };
+    },
     
-    const actions = {
+    actions: {
         
         reset({state}) {
             state.value = 0;
@@ -28,17 +39,11 @@ export const createModel = (): any => {
             value = parseInt(value, 10);
             state.value = isNaN(value) ? null : value;
         }        
-    };
-    
-    const result = { state: observable(state), targets: null };
-    result.targets = actionsToTargets(result, actions);
-    return result;
-};
+    }
+});
 
-export const View = observer(({model}: any) => {
+export const View = observer<any>(({model: { state, targets }}) => {
     const counterStyle = {display: 'inline-block', padding: '2 20'};
-    const state = model.state;
-    const targets = model.targets;
     return (
         <div style={counterStyle}>
             <input type="text" onChange={(e: any) => targets.set(e.target.value)} value={state.value}/>
