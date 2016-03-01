@@ -2,6 +2,10 @@ import './Object.assign';
 import { Subject, Observable } from '@reactivex/rxjs';
 import { observable } from 'mobx';
 
+export const defaultDrivers = {
+    http$: httpDriver
+};
+
 export function actionsToTargets(model: any, actionObj: any) {
     return Object.keys(actionObj).reduce((acc, key) => {
         acc[key] = function (...acc) {
@@ -11,10 +15,24 @@ export function actionsToTargets(model: any, actionObj: any) {
     }, {});  
 }
 
-export function httpDriver(input$: Observable<any>): Subject<any> {
+export function keyDriver (document: Document) {
+    const subject = new Subject<KeyboardEvent>();
+    document.addEventListener('keyDown', function keyDown(ev:KeyboardEvent){
+        subject.next(ev);    
+    });
+    
+    return function keyDriverFunc(options: any) {
+        return subject.filter(i => i.key === options.key 
+            && (!options.ctrlKey || i.ctrlKey)
+            && (!options.altKey || i.altKey)
+            && (!options.shiftKey || i.shiftKey));
+    }        
+}
+
+export function httpDriver(input$: Observable<any>, options?: RequestInit): Subject<any> {
     const result = new Subject();
     input$.subscribe((url: string) => {
-        fetch(url).then(i => {
+        fetch(url, options).then(i => {
            result.next(i);
         });        
     });

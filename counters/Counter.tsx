@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
+import { Observable } from '@reactivex/rxjs';
 import { modelFactory } from '../model';
 
 export interface IState {
@@ -39,7 +40,18 @@ export const createModel = modelFactory<IState, ITargets>({
             value = parseInt(value, 10);
             state.value = isNaN(value) ? null : value;
         }        
-    }
+    },
+    
+    inputs(model, drivers, createInput: () => Observable<any>) {        
+        
+        drivers.key$({ key: '+'})
+            .subscribe(model.targets.increment);
+
+        drivers.key$({ key: '-'})
+            .subscribe(model.targets.decrement);
+                
+        return {};
+    }    
 });
 
 export const View = observer<any>(({model: { state, targets }}) => {
