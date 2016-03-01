@@ -2,15 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-
-const toTargets = (model: any, actionObj: any) => {
-    return Object.keys(actionObj).reduce((acc, key) => {
-        acc[key] = function (...acc) {
-            actionObj[key](model, ...acc)
-        };
-        return acc;
-    }, {});  
-};
+import { actionsToTargets } from '../utils';
 
 export const createModel = (): any => {
     
@@ -39,7 +31,7 @@ export const createModel = (): any => {
     };
     
     const result = { state: observable(state), targets: null };
-    result.targets = toTargets(result, actions);
+    result.targets = actionsToTargets(result, actions);
     return result;
 };
 
