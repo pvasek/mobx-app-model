@@ -64,6 +64,10 @@ export interface IModel<TState, TTargets> {
     targets: TTargets    
 }
 
+export interface IModelFromTemplate<TState> {
+    template: IModelTemplate<TState>
+}
+
 export interface IModelOptions {
     key?: string;
 }
@@ -78,7 +82,8 @@ export function model<TState, TTargets>(
     const result = Object.assign({ 
         key: options.key,
         state, 
-        targets: null 
+        targets: null,
+        template
     }, template.extensions);
     
     if (template.actions) {
@@ -95,5 +100,15 @@ export function model<TState, TTargets>(
 
 export function modelFactory<TState, TTargets>(
     template: IModelTemplate<TState>): (options?: IModelOptions) => IModel<TState, TTargets> {
-    return (options?: IModelOptions) => model<TState, TTargets>(template, options);
+    const result = (options?: IModelOptions) => model<TState, TTargets>(template, options);
+    (result as any).__template = template;
+    return result;
+}
+
+export function getActionsFromModel(model: any): any {
+    return (model as any).template.actions;
+}
+
+export function getActionsFromModelFactory(modelFactory: Function): any {
+    return (modelFactory as any).__template;
 }
