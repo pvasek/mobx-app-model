@@ -90,21 +90,6 @@ export function getActionsFromModelFactory(modelFactory: Function): any {
     return (modelFactory as any).__template;
 }
 
-
-export function keyDriver (document: Document) {
-    const subject = new Subject<KeyboardEvent>();
-    document.addEventListener('keydown', function keyDown(e:KeyboardEvent){
-        subject.next(e);    
-    });
-    
-    return function keyDriverFunc(options: any) {
-        return subject.filter(i => i.key === options.key 
-            && (!options.ctrlKey || i.ctrlKey)
-            && (!options.altKey || i.altKey)
-            && (!options.shiftKey || i.shiftKey));
-    }        
-}
-
 export function httpDriver(input$: Observable<any>, options?: RequestInit): Subject<any> {
     const result = new Subject();
     input$.subscribe((url: string) => {

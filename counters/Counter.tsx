@@ -24,7 +24,7 @@ export const createModel = modelFactory<IState, ITargets>({
     
     actions: {
         
-        reset({state}) {
+        reset({state}) {            
             state.value = 0;
         },
         
