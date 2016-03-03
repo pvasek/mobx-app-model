@@ -15,33 +15,9 @@ export function actionsToTargets(model: any, actionObj: any) {
     }, {});  
 }
 
-export function keyDriver (document: Document) {
-    const subject = new Subject<KeyboardEvent>();
-    document.addEventListener('keydown', function keyDown(e:KeyboardEvent){
-        console.log('key: ', e.key)
-        subject.next(e);    
-    });
-    
-    return function keyDriverFunc(options: any) {
-        return subject.filter(i => i.key === options.key 
-            && (!options.ctrlKey || i.ctrlKey)
-            && (!options.altKey || i.altKey)
-            && (!options.shiftKey || i.shiftKey));
-    }        
-}
-
-export function httpDriver(input$: Observable<any>, options?: RequestInit): Subject<any> {
-    const result = new Subject();
-    input$.subscribe((url: string) => {
-        fetch(url, options).then(i => {
-           result.next(i);
-        });        
-    });
-    return result;
-};
-
-export function inputToTargets(model, createInputs): any {
-    const inputs = createInputs(model, defaultDrivers, () => new Subject());
+export function inputToTargets(model, createInputs, drivers = {}): any {
+    drivers = Object.assign({}, defaultDrivers, drivers);
+    const inputs = createInputs(model, drivers, () => new Subject());
     return Object.keys(inputs).reduce((obj: any, key: string) => {
         const input: Subject<any> = inputs[key];
         obj[key] = function targetToInput(args) {
@@ -70,6 +46,8 @@ export interface IModelFromTemplate<TState> {
 
 export interface IModelOptions {
     key?: string;
+    drivers?: any;
+    actions? : any;
 }
 
 export function model<TState, TTargets>(
@@ -86,15 +64,14 @@ export function model<TState, TTargets>(
         template
     }, template.extensions);
     
-    if (template.actions) {
-        result.targets = actionsToTargets(result, template.actions);
+    if (template.actions || options.actions) {
+        result.targets = actionsToTargets(result, Object.assign({}, template.actions, options.actions));
     }
     
     if (template.inputs) {
-        result.targets = Object.assign(result.targets, inputToTargets(result, template.inputs));
+        result.targets = Object.assign(result.targets, inputToTargets(result, template.inputs, options.drivers));
     }
     
-    console.log('model: ', result);
     return result;
 }
 
@@ -112,3 +89,28 @@ export function getActionsFromModel(model: any): any {
 export function getActionsFromModelFactory(modelFactory: Function): any {
     return (modelFactory as any).__template;
 }
+
+
+export function keyDriver (document: Document) {
+    const subject = new Subject<KeyboardEvent>();
+    document.addEventListener('keydown', function keyDown(e:KeyboardEvent){
+        subject.next(e);    
+    });
+    
+    return function keyDriverFunc(options: any) {
+        return subject.filter(i => i.key === options.key 
+            && (!options.ctrlKey || i.ctrlKey)
+            && (!options.altKey || i.altKey)
+            && (!options.shiftKey || i.shiftKey));
+    }        
+}
+
+export function httpDriver(input$: Observable<any>, options?: RequestInit): Subject<any> {
+    const result = new Subject();
+    input$.subscribe((url: string) => {
+        fetch(url, options).then(i => {
+           result.next(i);
+        });        
+    });
+    return result;
+};
