@@ -17,6 +17,8 @@
         
         "dist",        
         "temp",
-        "examples/counters/dist"
+        "examples/counters/dist",
+        "typings/browser",
+        "typings/browser.d.ts"
     ]
 }
