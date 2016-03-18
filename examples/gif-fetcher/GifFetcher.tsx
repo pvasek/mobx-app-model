@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { Subject, Observable } from '@reactivex/rxjs';
 import { observable, autorun } from 'mobx';
 import { observer } from 'mobx-react';
-import { modelFactory, IModel } from '../model';
+import { modelFactory, IModel } from '../../src/index';
 
 export interface IState {
     value: string;
