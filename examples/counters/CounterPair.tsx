@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { observable, autorun, toJSON, transaction } from 'mobx';
 import { observer } from 'mobx-react';
-import { model } from '../model';
+import { model } from '../../src';
 import { View as Counter, createModel as counterCreateModel } from './Counter';
 
 export const createModel = () => {

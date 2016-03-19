@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { observable, autorun, toJSON, transaction } from 'mobx';
 import { observer } from 'mobx-react';
-import { modelFactory } from '../model';
+import { modelFactory } from '../../src';
 import { View as Counter, createModel as counterCreateModel } from './CounterPair';
 
 

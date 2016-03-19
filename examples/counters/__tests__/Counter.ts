@@ -1,6 +1,6 @@
 import 'mocha';
 import { Subject } from '@reactivex/rxjs';
-import { getActionsFromModelFactory } from '../../model';
+import { getActionsFromModelFactory } from '../../../src';
 import { createModel } from '../Counter';
 import { assert } from 'chai';
 

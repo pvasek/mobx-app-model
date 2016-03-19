@@ -14,7 +14,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.(tsx?)$/, loader: 'ts-loader?configFileName=./../tsconfig.json' }
+      { test: /\.(tsx?)$/, loader: 'ts-loader?configFileName=./../../tsconfig.json' }
     ]
   }
 };

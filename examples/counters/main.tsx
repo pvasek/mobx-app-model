@@ -2,8 +2,7 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { observable, autorun, toJSON, map, asFlat, observe, expr } from 'mobx';
 import { observer } from 'mobx-react';
-import { defaultDrivers } from '../model';
-import { keyDriver } from '../keyDriver';
+import { defaultDrivers, keyDriver } from '../../src';
 
 import { View, createModel } from './Counter';
 

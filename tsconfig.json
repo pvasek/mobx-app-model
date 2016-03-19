@@ -6,8 +6,6 @@
         "jsx": "react",
         "rootDir": ".",
         "sourceMap": true
-        //"inlineSourceMap": true,
-        //"inlineSources": true       
     },
     
     "exclude": [
@@ -17,8 +15,10 @@
         
         "dist",        
         "temp",
+        "typings/main",
+        "typings/main.d.ts",
+        
         "examples/counters/dist",
-        "typings/browser",
-        "typings/browser.d.ts"
+        "examples/git-fetcher/dist"
     ]
 }
