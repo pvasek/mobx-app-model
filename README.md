@@ -1,5 +1,15 @@
-# mobx-model
+# mobx-model (experiment)
 A simple wrapper around [mobx](https://github.com/mobxjs/mobx). 
+
+## Status
+It's an experiment. We are going to use it in our project and
+we are prepared to tweak it until it fits to our use cases.
+
+I cannot recommend anyone to use it in real project because 
+it is in an early stage. 
+
+If you like it or have ideas how to improve it I will be happy 
+to hear them.
 
 ## Goals
 - actions which are simple to test
@@ -52,3 +62,6 @@ A simple wrapper around [mobx](https://github.com/mobxjs/mobx).
 
 
 ```
+
+## Comments
+Some of the ideas cames from the [previous experiment](https://github.com/pvasek/vux) 
