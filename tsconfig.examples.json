@@ -4,7 +4,7 @@
         "target": "es5",
         "outDir": "lib",
         "jsx": "react",
-        "rootDir": "src",
+        "rootDir": ".",
         "sourceMap": true
     },
     
@@ -15,8 +15,6 @@
         
         "lib",        
         "typings/main",
-        "typings/main.d.ts",
-        
-        "examples"
+        "typings/main.d.ts"
     ]
 }
