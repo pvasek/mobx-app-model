@@ -1,13 +1,19 @@
 {
-  "name": "mobx-model",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "mobx-app-model",
+  "version": "0.1.0",
+  "description": "Model structure for application based on mobx",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pvasek/mobx-app-model"
   },
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "prebuild": "tsc -d",
+    "test": "tsc & mocha ./lib/__tests__"    
+  },
+  "author": "pvasek",
+  "license": "MIT",
   "dependencies": {
     "@reactivex/rxjs": "^5.0.0-beta.2",
     "classnames": "^2.2.3",
