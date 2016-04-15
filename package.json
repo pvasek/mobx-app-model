@@ -1,6 +1,6 @@
 {
   "name": "mobx-app-model",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Model structure for application based on mobx",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -16,14 +16,14 @@
   "license": "MIT",
   "dependencies": {
     "@reactivex/rxjs": "^5.0.0-beta.2",
+    "mobx": "^2.0.0"
+  },
+  "devDependencies": {
     "classnames": "^2.2.3",
-    "mobx": "^2.0.0",
     "mobx-react": "^3.0.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "whatwg-fetch": "^0.11.0"
-  },
-  "devDependencies": {
+    "whatwg-fetch": "^0.11.0",
     "chai": "^3.5.0",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
@@ -38,5 +38,9 @@
     "typescript": "^1.8.0",
     "typings": "^0.7.9",
     "webpack": "^1.12.13"
-  }
+  },
+  "files": [
+    "lib",
+    "README.md"
+  ]
 }
