@@ -10,6 +10,8 @@ tmp/
 publish/
 artifacts/
 out/
+dist/
+lib/
 _ReSharper*/
 *.ReSharper
 *.user
