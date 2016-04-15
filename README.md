@@ -11,6 +11,18 @@ it is in an early stage.
 If you like it or have ideas how to improve it I will be happy 
 to hear them.
 
+## Instalation
+
+```
+npm install --save mobx-app-model
+```
+
+to use typescript you need also install following typings:
+```
+typings install --save --ambient es6-shim
+typings install --save --ambient whatwg-fetch
+```
+
 ## Goals
 - actions which are simple to test
 - targets which are created from these action and can be 
