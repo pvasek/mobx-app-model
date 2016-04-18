@@ -3,10 +3,12 @@ import { Subject, Observable } from '@reactivex/rxjs';
 import { observable } from 'mobx';
 
 import { IModelTemplate, IModelOptions, IModel } from './types';
-import { httpDriver } from './drivers/httpDriver';
+import { subjectDriver, httpDriver, modelDriver } from './drivers';
 
 export const defaultDrivers = {
-    http$: httpDriver
+    http$: httpDriver,
+    subject$: subjectDriver,
+    model$: modelDriver
 };
 
 export function model<TState, TTargets>(
@@ -60,8 +62,8 @@ export function actionsToTargets(model: any, actionObj: any) {
 
 export function inputToTargets(model, createInputs, drivers = {}): any {
     drivers = Object.assign({}, defaultDrivers, drivers);
-    const inputs = createInputs(model, drivers, () => new Subject());
-    return Object.keys(inputs).reduce((obj: any, key: string) => {
+    const inputs = createInputs(model, drivers);
+    return Object.keys(inputs || {}).reduce((obj: any, key: string) => {
         const input: Subject<any> = inputs[key];
         obj[key] = function targetToInput(args) {
             input.next(args);

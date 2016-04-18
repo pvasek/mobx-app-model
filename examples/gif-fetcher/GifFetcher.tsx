@@ -33,9 +33,9 @@ export const createModel = modelFactory<IState, ITargets>({
         }
     },
     
-    inputs(model, drivers, createInput: () => Observable<any>) {        
+    inputs(model, drivers) {        
         
-        const searchInput$ = createInput();
+        const searchInput$ = drivers.subject$();
         
         const url$ = searchInput$
             .do(i => console.log('searchInput$: ', i))

@@ -42,7 +42,7 @@ export const createModel = modelFactory<IState, ITargets>({
         }        
     },
     
-    inputs(model, drivers, createInput: () => Observable<any>) {        
+    inputs(model, drivers) {        
         
         drivers.key$({ key: '+'})
             .subscribe(model.targets.increment);
