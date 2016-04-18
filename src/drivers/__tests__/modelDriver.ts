@@ -17,8 +17,9 @@ describe('modelDriver', () => {
         
         let last = -1;
         stream$.subscribe(i => last = i);
-        assert.equal(0, last);
         model.count = 5;
         assert.equal(5, last);
+        model.count = 6;
+        assert.equal(6, last);
     });
 });       

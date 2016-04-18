@@ -10,7 +10,7 @@
   },
   "scripts": {
     "prebuild": "tsc -d",
-    "test": "tsc & mocha ./lib/__tests__"    
+    "test": "tsc & mocha './lib/**/__tests__/*.js'"    
   },
   "author": "pvasek",
   "license": "MIT",
