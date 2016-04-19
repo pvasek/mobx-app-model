@@ -7,14 +7,10 @@ export interface IModelTemplate<TState> {
     extensions?: any;
 }
 
-export interface IModelOutputs {
-    [name: string]: Observable<any>;    
-}
-
 export interface IModel<TState, TTargets> {
     state: TState;
     targets: TTargets;
-    outpus: IModelOutputs
+    outputs: any;
 }
 
 export interface IModelFromTemplate<TState> {

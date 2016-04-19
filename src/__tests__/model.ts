@@ -14,6 +14,8 @@ describe('model', () => {
             }
         },
         inputs(model, drivers) {
+            assert.ok(model);
+            assert.ok(model.state);
             return { testOutput$: drivers.subject$() };
         }
     });

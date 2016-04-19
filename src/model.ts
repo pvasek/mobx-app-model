@@ -31,7 +31,7 @@ export function model<TState, TTargets>(
     
     if (template.inputs) {
         const drivers = Object.assign({}, defaultDrivers, options.drivers);
-        const inputs = template.inputs(model, drivers);
+        const inputs = template.inputs(result, drivers);
         result.outputs = inputs;
         result.targets = Object.assign(result.targets, inputToTargets(inputs));
     }
