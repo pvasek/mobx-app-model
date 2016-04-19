@@ -12,6 +12,9 @@ describe('model', () => {
             increment({state}) {
                 state.count += 1;
             }
+        },
+        inputs(model, drivers) {
+            return { testOutput$: drivers.subject$() };
         }
     });
 
@@ -22,4 +25,16 @@ describe('model', () => {
             assert.equal(target.state.count, 1, 'after increment');
         });
     });
+    
+    describe('outputs:', () => {
+        it('Should be bind to inputs', () => {
+            assert.ok(target.outputs.testOutput$);
+            let callCount = 0;
+            target.outputs.testOutput$.subscribe(() => callCount++);                        
+            target.targets.testOutput$();
+            assert.equal(1, callCount);
+            target.targets.testOutput$();
+            assert.equal(2, callCount);
+        })
+    })
 });

@@ -30,7 +30,10 @@ export function model<TState, TTargets>(
     }
     
     if (template.inputs) {
-        result.targets = Object.assign(result.targets, inputToTargets(result, template.inputs, options.drivers));
+        const drivers = Object.assign({}, defaultDrivers, options.drivers);
+        const inputs = template.inputs(model, drivers);
+        result.outputs = inputs;
+        result.targets = Object.assign(result.targets, inputToTargets(inputs));
     }
     
     return result;
@@ -51,7 +54,7 @@ export function getActionsFromModelFactory(modelFactory: Function): any {
     return (modelFactory as any).__template;
 }
 
-export function actionsToTargets(model: any, actionObj: any) {
+function actionsToTargets(model: any, actionObj: any) {
     return Object.keys(actionObj).reduce((acc, key) => {
         acc[key] = function (...acc) {
             actionObj[key](model, ...acc)
@@ -60,9 +63,7 @@ export function actionsToTargets(model: any, actionObj: any) {
     }, {});  
 }
 
-export function inputToTargets(model, createInputs, drivers = {}): any {
-    drivers = Object.assign({}, defaultDrivers, drivers);
-    const inputs = createInputs(model, drivers);
+function inputToTargets(inputs): any {
     return Object.keys(inputs || {}).reduce((obj: any, key: string) => {
         const input: Subject<any> = inputs[key];
         obj[key] = function targetToInput(args) {

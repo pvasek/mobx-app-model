@@ -19,6 +19,10 @@ import {
     httpDriver    
 } from './drivers/httpDriver';
 
+import {
+    modelDriver   
+} from './drivers/modelDriver';
+
 export {
     model,
     modelFactory,
@@ -30,5 +34,6 @@ export {
     IModelTemplate,
     
     keyDriver,
-    httpDriver
+    httpDriver,
+    modelDriver,
 }

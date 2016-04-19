@@ -1,6 +1,6 @@
 {
   "name": "mobx-app-model",
-  "version": "0.1.3",
+  "version": "0.2.7",
   "description": "Model structure for application based on mobx",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -9,8 +9,8 @@
     "url": "https://github.com/pvasek/mobx-app-model"
   },
   "scripts": {
-    "prebuild": "tsc -d",
-    "test": "tsc & mocha './lib/**/__tests__/*.js'"    
+    "prepublish": "tsc -d",
+    "test": "tsc & mocha ./lib/**/__tests__/*.js"    
   },
   "author": "pvasek",
   "license": "MIT",

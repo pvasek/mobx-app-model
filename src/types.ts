@@ -1,3 +1,5 @@
+import { Observable } from '@reactivex/rxjs';
+
 export interface IModelTemplate<TState> {
     state: TState;
     actions?: any;
@@ -5,9 +7,14 @@ export interface IModelTemplate<TState> {
     extensions?: any;
 }
 
+export interface IModelOutputs {
+    [name: string]: Observable<any>;    
+}
+
 export interface IModel<TState, TTargets> {
     state: TState;
-    targets: TTargets    
+    targets: TTargets;
+    outpus: IModelOutputs
 }
 
 export interface IModelFromTemplate<TState> {
