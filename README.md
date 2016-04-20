@@ -30,6 +30,9 @@ typings install --save --ambient whatwg-fetch
 - have composable models
 - posible side effects _(this needs to be improved)_
 
+## Description
+- actions - methods where model and arguments are passed, they run in mobx transaction
+
 ## Example
 
 ```javascript

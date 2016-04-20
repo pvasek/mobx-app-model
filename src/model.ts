@@ -1,6 +1,6 @@
 import './Object.assign';
 import { Subject, Observable } from '@reactivex/rxjs';
-import { observable } from 'mobx';
+import { observable, transaction } from 'mobx';
 
 import { IModelTemplate, IModelOptions, IModel } from './types';
 import { subjectDriver, httpDriver, modelDriver } from './drivers';
@@ -57,7 +57,9 @@ export function getActionsFromModelFactory(modelFactory: Function): any {
 function actionsToTargets(model: any, actionObj: any) {
     return Object.keys(actionObj).reduce((acc, key) => {
         acc[key] = function (...acc) {
-            actionObj[key](model, ...acc)
+            transaction(() => {
+                actionObj[key](model, ...acc);    
+            })            
         };
         return acc;
     }, {});  

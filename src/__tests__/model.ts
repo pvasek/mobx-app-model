@@ -1,4 +1,5 @@
 import 'mocha';
+import { autorun } from 'mobx';
 import { model } from '../model';
 import { assert } from 'chai';
 
@@ -10,6 +11,10 @@ describe('model', () => {
         },
         actions: {
             increment({state}) {
+                state.count += 1;
+            },
+            doubleIncrement({state}) {
+                state.count += 1;                
                 state.count += 1;
             }
         },
@@ -25,6 +30,21 @@ describe('model', () => {
             assert.equal(target.state.count, 0, 'initial state');
             target.targets.increment();        
             assert.equal(target.state.count, 1, 'after increment');
+        });
+
+        it('Actions should run in transaction', () => {
+            target.state.count = 0;
+            let callCount = 0;
+            autorun(() => {
+                const count = target.state.count;
+                callCount++; 
+            });
+            
+            callCount = 0;
+            assert.equal(target.state.count, 0, 'initial state');
+            target.targets.doubleIncrement();
+            assert.equal(target.state.count, 2, 'after double increment');
+            assert.equal(callCount, 1);    
         });
     });
     
