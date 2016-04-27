@@ -57,9 +57,12 @@ export function getActionsFromModelFactory(modelFactory: Function): any {
 function actionsToTargets(model: any, actionObj: any) {
     return Object.keys(actionObj).reduce((acc, key) => {
         acc[key] = function (...acc) {
+            const action = actionObj[key];
+            let result = null;
             transaction(() => {
-                actionObj[key](model, ...acc);    
-            })            
+                result = action(model, ...acc);    
+            });
+            return result;
         };
         return acc;
     }, {});  

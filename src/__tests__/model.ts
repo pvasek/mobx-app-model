@@ -16,6 +16,9 @@ describe('model', () => {
             doubleIncrement({state}) {
                 state.count += 1;                
                 state.count += 1;
+            },
+            count() {
+                return 10;
             }
         },
         inputs(model, drivers) {
@@ -46,6 +49,10 @@ describe('model', () => {
             assert.equal(target.state.count, 2, 'after double increment');
             assert.equal(callCount, 1);    
         });
+        
+        it('Actions should return results', () => {
+            assert.equal(target.targets.count(), 10);
+        })
     });
     
     describe('outputs:', () => {
