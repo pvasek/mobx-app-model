@@ -31,7 +31,10 @@ typings install --save --ambient whatwg-fetch
 - posible side effects _(this needs to be improved)_
 
 ## Description
+- state - initial state of your model, this creates the _state_ property on the model (mobx observable)
 - actions - methods where model and arguments are passed, they run in mobx transaction
+- inputs - method that enables to create additional inputs that can be connected throug drivers rx subject, ... (see examples - gif-fetcher)
+- init - enables to init model during creation, good for composing other models
 
 ## Example
 
