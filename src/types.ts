@@ -20,6 +20,6 @@ export interface IModelFromTemplate<TState> {
 
 export interface IModelOptions {
     key?: string;
-    drivers?: any;
+    services?: any;
     actions? : any;    
 }

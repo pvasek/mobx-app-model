@@ -1,7 +1,7 @@
 import { 
     model, 
     modelFactory, 
-    defaultDrivers, 
+    defaultServices, 
     getActionsFromModelFactory 
 } from './model';
 
@@ -11,29 +11,14 @@ import {
     IModelTemplate 
 } from './types';
 
-import {
-    keyDriver    
-} from './drivers/keyDriver';
-
-import {
-    httpDriver    
-} from './drivers/httpDriver';
-
-import {
-    modelDriver   
-} from './drivers/modelDriver';
-
 export {
     model,
     modelFactory,
-    defaultDrivers,
+    defaultServices,
     getActionsFromModelFactory,
     
     IModel,
     IModelOptions,
     IModelTemplate,
     
-    keyDriver,
-    httpDriver,
-    modelDriver,
 }

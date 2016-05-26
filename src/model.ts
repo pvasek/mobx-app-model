@@ -3,9 +3,9 @@ import { Subject, Observable } from '@reactivex/rxjs';
 import { observable, transaction } from 'mobx';
 
 import { IModelTemplate, IModelOptions, IModel } from './types';
-import { subjectDriver, httpDriver, modelDriver } from './drivers';
+import { subjectDriver, httpDriver, modelDriver } from './services';
 
-export const defaultDrivers = {
+export const defaultServices = {
     http$: httpDriver,
     subject$: subjectDriver,
     model$: modelDriver
@@ -18,20 +18,22 @@ export function model<TState, TTargets>(
     options = options || { key: 'model' };
     const state = observable(Object.assign({}, template.state));
     
+    const services = Object.assign({}, defaultServices, options.services);
+    
     const result = Object.assign({ 
         key: options.key,
         state, 
         targets: null,
-        template
+        template,
+        services,
     }, template.extensions);
     
     if (template.actions || options.actions) {
         result.targets = actionsToTargets(result, Object.assign({}, template.actions, options.actions));
-    }
+    }        
     
-    if (template.inputs) {
-        const drivers = Object.assign({}, defaultDrivers, options.drivers);
-        const inputs = template.inputs(result, drivers);
+    if (template.inputs) {        
+        const inputs = template.inputs(result, services);
         result.outputs = inputs;
         result.targets = Object.assign(result.targets, inputToTargets(inputs));
     }
