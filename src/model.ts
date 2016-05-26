@@ -36,6 +36,10 @@ export function model<TState, TTargets>(
         result.targets = Object.assign(result.targets, inputToTargets(inputs));
     }
     
+    if (template.init) {
+        template.init(result, template);
+    }
+    
     return result;
 }
 

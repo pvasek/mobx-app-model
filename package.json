@@ -1,6 +1,6 @@
 {
   "name": "mobx-app-model",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "Model structure for application based on mobx",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",

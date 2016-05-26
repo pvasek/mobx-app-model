@@ -7,7 +7,9 @@ describe('model', () => {
     
     const target: any = model({
         state: {
-            count: 0  
+            count: 0,
+            dynamicState: null,
+            initialDynamicState: 1
         },
         actions: {
             increment({state}) {
@@ -65,5 +67,20 @@ describe('model', () => {
             target.targets.testOutput$();
             assert.equal(2, callCount);
         })
-    })
+    });
+    
+    describe('init:', () => {
+        it('Should be called during creation', () => {
+            const myTarget: any = model({
+                state: {
+                    count: 0,
+                },
+                init(model, template) {
+                    model.test = 1;
+                }
+            });
+
+            assert.equal(1, myTarget.test);
+        });
+    });
 });

@@ -5,6 +5,7 @@ export interface IModelTemplate<TState> {
     actions?: any;
     inputs?: any;
     extensions?: any;
+    init?: (model: any, template: any) => void;
 }
 
 export interface IModel<TState, TTargets> {
@@ -20,5 +21,5 @@ export interface IModelFromTemplate<TState> {
 export interface IModelOptions {
     key?: string;
     drivers?: any;
-    actions? : any;
+    actions? : any;    
 }
